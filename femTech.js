@@ -12,33 +12,25 @@ function plotData(){
                         //debugger;
                 })
 
-                var neonatalData ={
-                       type: 'scatter',
-                       mode: 'lines',
-                       name: 'Neonatal Mortality Rate',
-                       color: 'rgb',
-                       x:dt.Neonatal.year,
-                       y:dt.Neonatal.mortality
-
-                 };
-                var infantData ={
-                        type: 'scatter',
-                        mode: 'lines',
-                        name: 'Infant Mortality Rate',
-                        color: 'hex'
-                        
-                };
+                data = Object.getOwnPropertyNames(dt).map(function(n){
+                        return {
+                               type: 'scatter',
+                               mode: 'lines',
+                               name: n+' mortality rate',
+                               color: 'rgb',
+                               x:dt[n].year,
+                               y:dt[n].mortality 
+                        }
+                })
+                
                  var layout = {
                          yaxis: {title: 'Mortality Rate'},
                          xaxis: {
                                  title: 'Year'
                          }
                  }
-                 44   
-
-               var data = [neonatalData, infantData]
-
-               Plotly.plot('mortGraph', fig.data, fig.layout, {showLink: true});
+              
+               Plotly.plot('mortGraph', data, layout, {showLink: true});
 
         });
 }
